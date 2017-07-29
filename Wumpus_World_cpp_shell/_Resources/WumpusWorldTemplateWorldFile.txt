@@ -1,0 +1,8 @@
+[dim]
+[xOfWumpus](tab)[yOfWumpus]
+[xOfGold](tab)[yOfGold]
+[numberOfPits]
+[xofPit1](tab)[yOfPit1]
+[xofPit2](tab)[yOfPit2]
+...
+[xofPitN](tab)[yOfPitN]

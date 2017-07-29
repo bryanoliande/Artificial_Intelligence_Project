@@ -1,0 +1,45 @@
+Bryan Oliande ID_REDACTED
+ICS 171 Summer Session 2016
+
+Final AI Project Report:
+
+This AI is a "smart" agent. It keeps a record of tiles it has visited and tiles that are possibly/definitely dangerous. It uses this information to make
+sure that it never dies. The agent is a very timid agent. It takes no risks - if there is even a slight chance of dying it will not go towards
+a tile. If it perceives a dangerous percept on the starting tile it will just exit the cave. If the agent discovers a stench, it will try to shoot
+its arrow if it hasn’t already. If it then perceives a scream, it will un-mark all tiles that were marked unsafe due to a stench. 
+
+Due to time constraints, I was not able to implement a proper search algorithm for the agent so it doesn't score as high as I would like.
+It moves to tiles it has never seen before in a random fashion. If it lands on a tile with a dangerous percept, it turns around to the previous
+tile and tries to visit an unvisited but safe tile. This continues until it either finds the gold or goes over 100 turns. In either case
+the agent will back-track to the start and exit the cave. The back-tracking algorithm is simple: push every tile the agent visits onto a stack.
+Once it decides it wants to back track, go to the tile on the top of the stack (by turning right until it is facing that tile). As a fail safe,
+if the agent goes over a certain amount of turns and the back-tracking function fails somehow (this never occurred in the 4000+ trials the
+agent has ran on), the agent will just start moving randomly until it dies.
+
+To see the agent in action, navigate to Wumpus_World_cpp_shell/bin in terminal and type “./MyAI”. Select the desired world size (4x4, 5x5 or 6x6 is optimal) and press enter to see the agent perform turn-by-turn.
+
+
+I have implemented private helper functions for the agent. They include:
+
+RandomMove: a function that just makes a random move (the code from the randomAI was basically recycled for this). 
+
+aboutFace: a function that makes the agent turn around and move to the previous tile  (this is accomplished by turning right twice and moving forward). 
+
+checkIfInArray: Checks if a tile the agent wants to move on is in the visited or unsafe array
+
+markSurroundingTilesUnsafeStench: Marks surrounding tiles as unsafe due to stench - the agent will then never move to these tiles unless the Wumpus is killed
+
+markSurroundingTilesUnsafeBreeze: Marks surrounding tiles as unsafe due to breeze - the agent will then never move to these tiles
+
+getNextMove: returns the tile the agent would be on if it moved forward 
+
+backTrack: Contains the back-tracking algorithm that allows the agent to exit the cave safely
+
+markTileBreeze: Marks tile as having a breeze
+
+markTileStench: marks tile as having a stench
+
+
+With these functions and the logic behind the agent's actions, it is able to always avoid death. The agent successfully captures the gold in most
+caves it is able to (because it is a very timid agent it sometimes fails to grab the gold when it would be possible to because it would have to walk
+through a tile that was not known to be safe). I am pleased with this agent and am confident that it will perform well in the tournament.
